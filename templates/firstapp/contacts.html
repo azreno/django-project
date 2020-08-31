@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/contacts_style.css' %}">
+    <title>Contacts</title>
+</head>
+<body>
+    <h1>Контакты</h1>
+    <p>{{ phone }} проще позвонить чем у кого-то занимать!</p>
+    <br>
+    <br>
+    <br>
+    <p>{% now "j N (F) Y" %}</p>
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            {% for field in form %}
+            <div>
+                {{ field.label }}
+            </div>
+            {{ field }}
+                {% for error in field.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <input type='submit' value='Отправить'>
+    </form>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Hello Django</title>
+</head>
+<body>
+    <h1>{{ header }}</h1>
+    <p>{{ message }}</p>
+    <p>{{ wows.1 }}</p>
+
+    <h1>Just image</h1>
+    <img src="{% static 'images/image.jpg' %}" alt="pusiki">
+    <ul>
+        {% for lang in spisok %}
+            <li>{{ lang }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
