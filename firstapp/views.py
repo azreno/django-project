@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import *
 from .forms import UserForm
+from .models import Person
 
 
 def index(request):
@@ -50,6 +51,24 @@ def products(request, productid=42):
 def users(request, id=0, name="admin"):
     output = "<h2>User</h2><h3>id: {0} name: {1}</h3>".format(id, name)
     return HttpResponse(output)
+
+
+def test_models(request):
+    """
+    CRUD
+    create
+    """
+    tom = Person.objects.create(name="Tom", age=23)
+    jennifer = Person(name="Jennifer", age=23)
+    jennifer.save()
+    timmy = Person.objects.create(name="Timmy", age=18)
+    #wow = Person.objects.get_or_create(name="Timmy")
+    people = Person.objects.all()
+    people_list = []
+    for person in people:
+        people_list.append(person.name)
+    peeeople = Person.objects.filter(name="Tom").exclude(age=34)
+    return HttpResponse(f"<h2>{tom.id}, {jennifer.age}, {jennifer.name}<br><br>{people_list}</h2><br>{peeeople.query}")
 
 
 def m404(request):

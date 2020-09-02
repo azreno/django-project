@@ -33,4 +33,5 @@ urlpatterns = [
     path('details/', views.details),
     path('home/', views.home),
     path('user/', views.user),
+    path('test/', views.test_models),
 ]
