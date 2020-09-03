@@ -53,22 +53,18 @@ def users(request, id=0, name="admin"):
     return HttpResponse(output)
 
 
-def test_models(request):
-    """
-    CRUD
-    create
-    """
-    tom = Person.objects.create(name="Tom", age=23)
-    jennifer = Person(name="Jennifer", age=23)
-    jennifer.save()
-    timmy = Person.objects.create(name="Timmy", age=18)
-    #wow = Person.objects.get_or_create(name="Timmy")
+def get_data(request):
     people = Person.objects.all()
-    people_list = []
-    for person in people:
-        people_list.append(person.name)
-    peeeople = Person.objects.filter(name="Tom").exclude(age=34)
-    return HttpResponse(f"<h2>{tom.id}, {jennifer.age}, {jennifer.name}<br><br>{people_list}</h2><br>{peeeople.query}")
+    return render(request, "firstapp/test.html", {"people": people})
+
+
+def create(request):
+    if request.method == "POST":
+        new_person = Person()
+        new_person.name = request.POST.get("name")
+        new_person.age = request.POST.get("age")
+        new_person.save()
+    return HttpResponseRedirect("/test")
 
 
 def m404(request):

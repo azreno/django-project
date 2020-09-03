@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Тест моделей Django</title>
+</head>
+<body>
+    <form method="POST" action="create/">
+        {% csrf_token %}
+        <p>
+            <label>Введите имя</label>
+            <br>
+            <input type="text" name="name" />
+        </p>
+        <p>
+            <label>Введите возраст</label>
+            <br>
+            <input type="number" name="age" />
+        </p>
+        <p>
+            <input type="submit" value="Сохранить">
+        </p>
+    </form>
+    {% if people.count > 0 %}
+    <h2>Список пользователей</h2>
+    <table>
+        <tr>
+            <td>Id</td>
+            <th>Имя</th>
+            <th>Возраст</th>
+        </tr>
+        {% for person in people %}
+        <tr>
+            <td>{{ person.id }}</td>
+            <th>{{ person.name }}</th>
+            <th>{{ person.age }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+</body>
+</html>
