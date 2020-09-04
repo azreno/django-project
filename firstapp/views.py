@@ -67,6 +67,29 @@ def create(request):
     return HttpResponseRedirect("/test")
 
 
+def edit(request, id):
+    try:
+        person = Person.objects.get(id=id)
+        if request.method == "POST":
+            person.name = request.POST.get("name")
+            person.age = request.POST.get("age")
+            person.save()
+            return HttpResponseRedirect("/test")
+        else:
+            return render(request, "firstapp/edit.html", {"person": person})
+    except Person.DoesNotExist:
+        return HttpResponseNotFound("<h2>Такой не найден</h2>")
+
+
+def delete(request, id):
+    try:
+        person = Person.objects.get(id=id)
+        person.delete()
+        return HttpResponseRedirect("/test")
+    except Person.DoesNotExist:
+        return HttpResponseNotFound("<h2>Как удалить того, кто и так не существует?..</h2>")
+
+
 def m404(request):
     return HttpResponseNotFound("<h5>404 Not Found</h5>")
 

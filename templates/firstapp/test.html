@@ -34,6 +34,7 @@
             <td>{{ person.id }}</td>
             <th>{{ person.name }}</th>
             <th>{{ person.age }}</th>
+            <td><a href="edit/{{ person.id }}">Изменить</a> | <a href="delete/{{person.id}}">Удалить</a> </td>
         </tr>
         {% endfor %}
     </table>
