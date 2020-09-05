@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Модели отношений</title>
+</head>
+<body>
+    <form method="POST" action="create_company/">
+        {% csrf_token %}
+        <p>
+            <label>Введите название компании для добавления в базу</label>
+            <br>
+            <input type="text" name="name" />
+        </p>
+        <p>
+            <input type="submit" value="Сохранить">
+        </p>
+    </form>
+    {% for company in companies %}
+    <table>
+        <tr>
+            <td>{{ company.id }}</td>
+            <td>{{ company.name }}</td>
+        </tr>
+    </table>
+    {% endfor %}
+</body>
+</html>

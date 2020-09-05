@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import *
 from .forms import UserForm
-from .models import Person
+from .models import Person, Company, Product
 
 
 def index(request):
@@ -90,7 +90,15 @@ def delete(request, id):
         return HttpResponseNotFound("<h2>Как удалить того, кто и так не существует?..</h2>")
 
 
-def m404(request):
-    return HttpResponseNotFound("<h5>404 Not Found</h5>")
+def goods_data(request):
+    companies = Company.objects.all()
+    return render(request, 'firstapp/relationship.html', {"companies": companies})
+
+def create_company(request):
+    if request.method == "POST":
+        new_company = Company()
+        new_company.name = request.POST.get("name")
+        new_company.save()
+    return HttpResponseRedirect("/relationship")
 
 # Create your views here.
