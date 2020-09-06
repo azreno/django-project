@@ -5,24 +5,72 @@
     <title>Модели отношений</title>
 </head>
 <body>
-    <form method="POST" action="create_company/">
-        {% csrf_token %}
-        <p>
-            <label>Введите название компании для добавления в базу</label>
-            <br>
-            <input type="text" name="name" />
-        </p>
-        <p>
-            <input type="submit" value="Сохранить">
-        </p>
-    </form>
-    {% for company in companies %}
     <table>
         <tr>
-            <td>{{ company.id }}</td>
-            <td>{{ company.name }}</td>
+            <td>
+                <form method="POST" action="create_company/">
+                {% csrf_token %}
+                <p>
+                    <label>Введите название компании для добавления в базу</label>
+                    <br>
+                    <input type="text" name="name" />
+                </p>
+                <p>
+                    <input type="submit" value="Сохранить">
+                </p>
+                </form>
+            </td>
+            <td>
+                <form method="POST" action="create_product/">
+                {% csrf_token %}
+                <p>
+                    <label>Введите название продукта для добавления в базу</label>
+                    <br>
+                    <input type="text" name="name" />
+                </p>
+                <p>
+                    <label>Введите цену продукта</label>
+                    <br>
+                    <input type="number" name="price" />
+                </p>
+                <p>
+                    <label>Производящая компания</label>
+                    <br>
+                    <input type="text" name="company" />
+                </p>
+                <p>
+                    <input type="submit" value="Сохранить">
+                </p>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    {% for company in companies %}
+                    <tr>
+                        <td>{{ company.id }}</td>
+                        <td>{{ company.name }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </td>
+            <td>
+                {% if goods.count > 0 %}
+                <h2>Продукты</h2>
+                <table>
+                    {% for product in goods %}
+                    <tr>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.company.name }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endif %}
+            </td>
         </tr>
     </table>
-    {% endfor %}
 </body>
 </html>

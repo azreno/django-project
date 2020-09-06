@@ -92,13 +92,27 @@ def delete(request, id):
 
 def goods_data(request):
     companies = Company.objects.all()
-    return render(request, 'firstapp/relationship.html', {"companies": companies})
+    goods = Product.objects.all()
+    return render(request, 'firstapp/relationship.html', {"companies": companies, "goods": goods})
+
 
 def create_company(request):
     if request.method == "POST":
         new_company = Company()
         new_company.name = request.POST.get("name")
         new_company.save()
+    return HttpResponseRedirect("/relationship")
+
+
+def create_product(request):
+    if request.method == "POST":
+        product = Product()
+        product.name = request.POST.get("name")
+        product.price = request.POST.get("price")
+        company_name = request.POST.get("company")
+        company = Company.objects.get_or_create(name=company_name)
+        company[0].product_set.add(product, bulk=False)
+        product.save()
     return HttpResponseRedirect("/relationship")
 
 # Create your views here.
