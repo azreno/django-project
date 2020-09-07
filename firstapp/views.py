@@ -104,6 +104,28 @@ def create_company(request):
     return HttpResponseRedirect("/relationship")
 
 
+def edit_company(request, id):
+    try:
+        company = Company.objects.get(id=id)
+        if request.method == "POST":
+            company.name = request.POST.get("name")
+            company.save()
+            return HttpResponseRedirect("/relationship")
+        else:
+            return render(request, "firstapp/edit_company.html", {"company": company})
+    except Company.DoesNotExist:
+        return HttpResponseNotFound("<h2>Такой компании не существует.</h2>")
+
+
+def delete_company(request, id):
+    try:
+        company = Company.objects.get(id=id)
+        company.delete()
+        return HttpResponseRedirect("/relationship")
+    except Company.DoesNotExist:
+        return HttpResponseNotFound("<h2>Такой компании не существует.</h2>")
+
+
 def create_product(request):
     if request.method == "POST":
         product = Product()

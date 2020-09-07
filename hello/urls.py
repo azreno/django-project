@@ -40,4 +40,6 @@ urlpatterns = [
     path('relationship/', views.goods_data),
     path('relationship/create_company/', views.create_company),
     path('relationship/create_product/', views.create_product),
+    path('relationship/edit/<int:id>', views.edit_company),
+    path('relationship/delete/<int:id>', views.delete_company),
 ]

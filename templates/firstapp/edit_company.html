@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Страница редактирования</title>
+</head>
+<body class="container">
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Введите название</label><br>
+            <input type="text" name="name" value="{{ company.name }}" />
+        </p>
+            <input type="submit" value="Сохранить изменения">
+    </form>
+</body>
+</html>
