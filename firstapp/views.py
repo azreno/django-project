@@ -23,10 +23,6 @@ def user(request):
     return render(request, "firstapp/contacts.html", {"form": userform})
 
 
-def home(request):
-    return render(request, "home.html")
-
-
 def about(request):
     return render(request, "firstapp/about.html")
 
@@ -136,5 +132,6 @@ def create_product(request):
         company[0].product_set.add(product, bulk=False)
         product.save()
     return HttpResponseRedirect("/relationship")
+
 
 # Create your views here.
